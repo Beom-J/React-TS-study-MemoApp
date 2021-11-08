@@ -1,31 +1,27 @@
-interface MemoProps {
-  seq: number;
-  title: string;
-  id: string;
-  date: string;
-  content: string;
-}
+import React, { MouseEvent, RefObject, useRef } from 'react';
+import { memoProps } from './MemoList';
 
-function Memo({
-  memo,
-  onClick
-}: {
-  memo: MemoProps;
-  onClick: (event: EventListener) => void;
-}) {
+// type memoProps = {
+//   id: string;
+//   name: string;
+//   title: string;
+//   createDate: string;
+//   content: string;
+// };
+
+type memo = {
+  params: memoProps;
+};
+
+function Memo({ params }: memo) {
   return (
-    <ul className="memo" onClick={handleClickMemo}>
-      <li className="title">{memo.title}</li>
+    <ul className="memo">
+      <li className="title">{params.title}</li>
       <li className="info">
-        <div className="id">{memo.id}</div>
-        <div className="date">{memo.date}</div>
+        <div className="id">{params.id}</div>
       </li>
     </ul>
   );
-}
-
-function handleClickMemo() {
-  console.log('Memo click!');
 }
 
 export default Memo;

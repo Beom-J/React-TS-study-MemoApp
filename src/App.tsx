@@ -1,62 +1,74 @@
-import { useState } from 'react';
+import { MouseEvent, useState } from 'react';
 import './App.css';
 import Memo from './components/Memo';
+import MemoList from './components/MemoList';
+
+type memoProps = {
+  id: string;
+  name: string;
+  title: string;
+  createDate: string;
+  content: string;
+};
 
 function App() {
-  const memo = {
-    seq: 0,
-    title: '제목',
-    id: '작성자',
-    date: '작성날짜',
-    content: '내용'
-  };
+  const [memo, setMemo] = useState({
+    id: 'user001',
+    name: 'user1',
+    title: 'title1',
+    createDate: '2021-11-08',
+    content: 'content1'
+  });
 
   const [viewPage, setViewPage] = useState({
-    seq: 0,
-    title: '',
-    id: '',
-    date: '',
-    content: ''
+    id: 'user001',
+    name: 'user1',
+    title: 'title1',
+    createDate: '2021-11-08',
+    content: 'content1'
   });
+
+  function handleClickMemo(event: MouseEvent) {
+    console.log('memo componenet :', event.currentTarget);
+  }
+
+  function handleAddButton(event: MouseEvent) {
+    console.log('click add button');
+  }
+
+  function handleSaveButton() {
+    console.log('click save button');
+  }
 
   return (
     <div className="warrap">
       <nav className="nav">
         <span> 안녕하세요, ㅇㅇㅇ님! </span>
-        <button className="log-in-btn">Log-in</button>
+        <button className="log-in-btn" type="button">
+          Log-in
+        </button>
       </nav>
       <div className="memo-warrap">
         <div className="memo-list">
-          <button className="add-btn">메모 추가</button>
-          <Memo memo={memo} onClick={handleClickMemo} />
-          <Memo memo={memo} onClick={handleClickMemo} />
-          <Memo memo={memo} onClick={handleClickMemo} />
+          <button className="add-btn" type="button" onClick={handleAddButton}>
+            메모 추가
+          </button>
+          <MemoList />
         </div>
         <div className="memo-view">
-          <div className="buttons">
-            <button className="modify">수정</button>
-            <button className="delete">삭제</button>
-          </div>
-          {viewPage.title === '' ? (
-            '메모장 입니다~!'
-          ) : (
-            <>
-              <ul className="top">
-                <li className="title"> {viewPage.title} </li>
-                <li className="id"> {viewPage.id} </li>
-                <li className="date"> {viewPage.date} </li>
-              </ul>
-              <div className="content"> {viewPage.content} </div>
-            </>
-          )}
+          <span>제목</span>
+          <input type="text" />
+          <br />
+          <span>내용</span>
+          <textarea />
+          <br />
+          <button className="save-btn" type="button" onClick={handleSaveButton}>
+            저장
+          </button>
         </div>
       </div>
     </div>
   );
-}
-
-function handleClickMemo(event: EventListener) {
-  console.log('app click!');
 }
 
 export default App;
