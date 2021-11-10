@@ -10,7 +10,7 @@ type props = {
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLTextAreaElement>
   ) => void;
-  onCreate: () => void;
+  onCreate: (id: string) => void;
 };
 
 function CreateMemo({
@@ -49,7 +49,12 @@ function CreateMemo({
         value={content}
       />
       &nbsp;&nbsp;
-      <button onClick={onCreate} type="button">
+      <button
+        onClick={() => {
+          onCreate(id);
+        }}
+        type="button"
+      >
         저장
       </button>
     </div>

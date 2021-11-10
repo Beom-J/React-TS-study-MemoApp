@@ -4,6 +4,13 @@ import { memoProps } from './Memo';
 import MemoList from './MemoList';
 import ViewPage from './ViewPage';
 
+const makeRandomId = () => {
+  const id =
+    Math.random().toString(20).substring(2, 10) +
+    Math.random().toString(20).substring(2, 10);
+  return id;
+};
+
 const MemoWrap = () => {
   // 우측 뷰페이지 전환용 bool state
   const [isWritePage, setWritePage] = useState(false);
@@ -11,13 +18,13 @@ const MemoWrap = () => {
   // memo list state
   const [memoList, setMemoList] = useState([
     {
-      id: '',
+      id: makeRandomId(),
       name: 'user1',
       title: 'title1',
       content: 'content1'
     },
     {
-      id: '',
+      id: makeRandomId(),
       name: 'user2',
       title: 'title2',
       content: 'content2'
@@ -57,19 +64,40 @@ const MemoWrap = () => {
   };
 
   // input 에 입력한 값을 memo list 에 추가
-  const handleCreate = () => {
-    const newMemo = {
-      id,
-      name,
-      title,
-      content
-    };
-    setMemoList([...memoList, newMemo]);
+  const handleCreate = (id: string) => {
+    // 새 글일 경우는 id 값이 공백이므로 만들어서 넣어 줌
+    if (id === '') {
+      const newMemo = {
+        id: makeRandomId(),
+        name,
+        title,
+        content
+      };
+      setMemoList([...memoList, newMemo]);
+    }
+    // 수정할 경우는 해당 id 값의 글만 수정
+    if (id !== '') {
+      const modifiedMemoIndex = memoList.findIndex((memo) => memo.id === id);
+      const modifiedMemo = {
+        id,
+        name,
+        title,
+        content
+      };
+      memoList.splice(modifiedMemoIndex, 1, modifiedMemo);
+    }
+
     setInputs({
       id: '',
       name: '',
       title: '',
       content: ''
+    });
+    setMemo({
+      id: '',
+      name: '',
+      title: '',
+      content: '메모를 클릭하거나, 새로운 메모를 추가해보세요'
     });
     setWritePage(false);
   };

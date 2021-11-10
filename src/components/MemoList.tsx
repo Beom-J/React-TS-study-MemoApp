@@ -6,13 +6,11 @@ type memoList = {
 };
 
 function MemoList({ memoList, onClick }: memoList) {
-  let key = 0;
   return (
     <div>
       <ul>
         {memoList.map((memo: memoProps) => {
-          key += 1;
-          return <Memo memo={memo} key={memo.name + key} onClick={onClick} />;
+          return <Memo memo={memo} key={memo.id} onClick={onClick} />;
         })}
       </ul>
     </div>
