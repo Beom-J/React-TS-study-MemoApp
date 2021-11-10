@@ -1,26 +1,25 @@
-import React, { MouseEvent, RefObject, useRef } from 'react';
-import { memoProps } from './MemoList';
-
-// type memoProps = {
-//   id: string;
-//   name: string;
-//   title: string;
-//   createDate: string;
-//   content: string;
-// };
-
-type memo = {
-  params: memoProps;
+export type memoProps = {
+  id: string;
+  name: string;
+  title: string;
+  content: string;
 };
 
-function Memo({ params }: memo) {
+type memo = {
+  memo: memoProps;
+  onClick: (memo: memoProps) => void;
+};
+
+function Memo({ memo, onClick }: memo) {
   return (
-    <ul className="memo">
-      <li className="title">{params.title}</li>
-      <li className="info">
-        <div className="id">{params.id}</div>
-      </li>
-    </ul>
+    <li onClick={() => onClick(memo)} onKeyDown={() => console.log('keyDown')}>
+      <div className="memo">
+        <div className="title">{memo.title}</div>
+        <div className="info">
+          <div className="name">{memo.name}</div>
+        </div>
+      </div>
+    </li>
   );
 }
 

@@ -1,22 +1,30 @@
+import '../css/Memo-Wrap.css';
+
 type props = {
+  id: string;
   name: string;
   title: string;
   content: string;
-  onDataChange: (event: any) => void;
+  onDataChange: (
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => void;
   onCreate: () => void;
 };
 
-function CreateMemo({ name, title, content, onDataChange, onCreate }: props) {
-  const style = {
-    width: '600px',
-    margin: '20px',
-    padding: '10px',
-    border: '3px solid black'
-  };
-
+function CreateMemo({
+  id,
+  name,
+  title,
+  content,
+  onDataChange,
+  onCreate
+}: props) {
   return (
-    <div style={style}>
+    <div className="write-page">
       <input
+        className="name"
         type="text"
         name="name"
         placeholder="이름입력"
@@ -25,6 +33,7 @@ function CreateMemo({ name, title, content, onDataChange, onCreate }: props) {
       />
       &nbsp;&nbsp;
       <input
+        className="title"
         type="text"
         name="title"
         placeholder="제목입력"
@@ -32,8 +41,8 @@ function CreateMemo({ name, title, content, onDataChange, onCreate }: props) {
         value={title}
       />
       &nbsp;&nbsp;
-      <input
-        type="text"
+      <textarea
+        className="content"
         name="content"
         placeholder="내용입력"
         onChange={onDataChange}
@@ -41,7 +50,7 @@ function CreateMemo({ name, title, content, onDataChange, onCreate }: props) {
       />
       &nbsp;&nbsp;
       <button onClick={onCreate} type="button">
-        추가
+        저장
       </button>
     </div>
   );

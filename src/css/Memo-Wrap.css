@@ -1,0 +1,22 @@
+.write-page {
+  display: flex;
+  flex-direction: column;
+}
+
+.write-page .name {
+}
+
+.write-page .title {
+  font-size: 20px;
+  font-weight: normal;
+  height: 5vh;
+}
+
+.write-page .content {
+  height: 70vh;
+}
+
+.write-page button {
+  background-color: #ccafa5;
+  height: 5%;
+}
