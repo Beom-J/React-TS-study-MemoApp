@@ -1,31 +1,26 @@
-interface MemoProps {
-  seq: number;
-  title: string;
+export type memoProps = {
   id: string;
-  date: string;
+  name: string;
+  title: string;
   content: string;
-}
+};
 
-function Memo({
-  memo,
-  onClick
-}: {
-  memo: MemoProps;
-  onClick: (event: EventListener) => void;
-}) {
+type memo = {
+  memo: memoProps;
+  onClick: (memo: memoProps) => void;
+};
+
+function Memo({ memo, onClick }: memo) {
   return (
-    <ul className="memo" onClick={handleClickMemo}>
-      <li className="title">{memo.title}</li>
-      <li className="info">
-        <div className="id">{memo.id}</div>
-        <div className="date">{memo.date}</div>
-      </li>
-    </ul>
+    <li onClick={() => onClick(memo)} onKeyDown={() => console.log('keyDown')}>
+      <div className="memo">
+        <div className="title">{memo.title}</div>
+        <div className="info">
+          <div className="name">{memo.name}</div>
+        </div>
+      </div>
+    </li>
   );
-}
-
-function handleClickMemo() {
-  console.log('Memo click!');
 }
 
 export default Memo;
