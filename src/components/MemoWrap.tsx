@@ -65,6 +65,11 @@ const MemoWrap = () => {
 
   // input 에 입력한 값을 memo list 에 추가
   const handleCreate = (id: string) => {
+    if (inputs.name === '' || inputs.title === '' || inputs.content === '') {
+      alert('빈칸을 채워주세요.');
+      return;
+    }
+
     // 새 글일 경우는 id 값이 공백이므로 만들어서 넣어 줌
     if (id === '') {
       const newMemo = {
@@ -114,7 +119,6 @@ const MemoWrap = () => {
 
   // 수정 버튼 누를 시 동작
   const handleModifyButton = (memo: memoProps) => {
-    console.log('modify : ', memo);
     setInputs(memo);
     setWritePage(true);
   };
