@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
+import { user } from '../Types';
 
 type logInProps = {
   userList: user[];
   onClickLogInButton: (isSavedUser: user | undefined) => void;
-};
-
-export type user = {
-  ID: string;
-  pwd: string;
 };
 
 const LogedOut = ({ userList, onClickLogInButton }: logInProps) => {

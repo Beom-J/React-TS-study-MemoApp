@@ -1,4 +1,4 @@
-import { user } from './LogedOut';
+import { user } from '../Types';
 
 type props = {
   user: user;

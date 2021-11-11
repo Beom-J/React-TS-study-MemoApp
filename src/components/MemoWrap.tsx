@@ -1,7 +1,6 @@
 import { useState } from 'react';
+import { memoProps, user } from '../Types';
 import CreateMemo from './CreateMemo';
-import { user } from './LogedOut';
-import { memoProps } from './Memo';
 import MemoList from './MemoList';
 import ViewPage from './ViewPage';
 
@@ -107,41 +106,48 @@ const MemoWrap = ({ user }: { user: user }) => {
       title: '',
       content: '메모를 클릭하거나, 새로운 메모를 추가해보세요'
     });
-    setWritePage(false);
+    setWritePage(checkLogIn(user));
   };
+
+  function checkLogIn(user: user) {
+    if (user.ID === '') {
+      alert('로그인 후 사용 가능합니다.');
+      return false;
+    }
+    return true;
+  }
 
   // write page 로 전환시켜주는 함수
   const handleAddButton = () => {
-    if (user.ID === '') {
-      alert('로그인 후 작성 가능합니다.');
-      return;
-    }
-    setWritePage(true);
+    setWritePage(checkLogIn(user));
   };
 
   // memo 클릭시 해당 memo 값을 들고 뷰페이지로 전환
   const handleClickMemo = (memo: memoProps) => {
+    setWritePage(false);
     setMemo(memo);
   };
 
   // 수정 버튼 누를 시 동작
   const handleModifyButton = (memo: memoProps) => {
     setInputs(memo);
-    setWritePage(true);
+    setWritePage(checkLogIn(user));
   };
 
   // 삭제 버튼 누를 시 동작
   const handleDeleteButton = (memo: memoProps) => {
-    const newMemoList: memoProps[] = memoList.filter(
-      (originalMemo) => originalMemo !== memo
-    );
-    setMemoList(newMemoList);
-    setMemo({
-      id: '',
-      name: user.ID,
-      title: '',
-      content: '메모를 클릭하거나, 새로운 메모를 추가해보세요'
-    });
+    if (checkLogIn(user)) {
+      const newMemoList: memoProps[] = memoList.filter(
+        (originalMemo) => originalMemo !== memo
+      );
+      setMemoList(newMemoList);
+      setMemo({
+        id: '',
+        name: user.ID,
+        title: '',
+        content: '메모를 클릭하거나, 새로운 메모를 추가해보세요'
+      });
+    }
   };
 
   return (
