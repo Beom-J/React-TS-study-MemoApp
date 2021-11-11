@@ -14,20 +14,14 @@ const makeRandomId = () => {
 const MemoWrap = ({ user }: { user: user }) => {
   // 우측 뷰페이지 전환용 bool state
   const [isWritePage, setWritePage] = useState(false);
-
+  console.log('..');
   // memo list state
   const [memoList, setMemoList] = useState([
     {
       id: makeRandomId(),
       name: user.ID,
-      title: 'title1',
-      content: 'content1'
-    },
-    {
-      id: makeRandomId(),
-      name: user.ID,
-      title: 'title2',
-      content: 'content2'
+      title: '임시글 입니다!',
+      content: '로그인 후 자유롭게 수정해보세요~'
     }
   ]);
 
