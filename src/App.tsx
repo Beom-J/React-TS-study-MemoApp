@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import LogedIn from './components/LogedIn';
 import LogedOut from './components/LogedOut';
-import MemoWrrap from './components/MemoWrap';
+import MemoWrap from './components/MemoWrap';
 import SignUp from './components/SignUp';
 import { user } from './Types';
 
@@ -38,6 +38,7 @@ function App() {
     }
     setLoggedUser(isSavedUser);
     setLogin(true);
+    setSignUp(false);
   };
 
   const handleSignUpButton = () => {
@@ -75,11 +76,12 @@ function App() {
           )}
         </div>
       </nav>
-      {isNeedSignUp ? (
+      <div hidden={isNeedSignUp}>
+        <MemoWrap user={loggedUser} />
+      </div>
+      <div hidden={!isNeedSignUp}>
         <SignUp onClickSaveButton={handleSaveUserButton} />
-      ) : (
-        <MemoWrrap user={loggedUser} />
-      )}
+      </div>
     </div>
   );
 }
