@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import './App.css';
 import LogedIn from './components/LogedIn';
-import LogedOut, { user } from './components/LogedOut';
+import LogedOut from './components/LogedOut';
 import MemoWrrap from './components/MemoWrap';
 import SignUp from './components/SignUp';
+import { user } from './Types';
 
 function getUserList() {
   const userIDs: string[] = Object.keys(window.localStorage);

@@ -1,9 +1,4 @@
-export type memoProps = {
-  id: string;
-  name: string;
-  title: string;
-  content: string;
-};
+import { memoProps } from '../Types';
 
 type memo = {
   memo: memoProps;
