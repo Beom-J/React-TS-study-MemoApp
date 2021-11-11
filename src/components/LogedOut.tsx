@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 
 type logInProps = {
-  user: Map<string, string>;
-  onClick: (isSavedUser: boolean) => void;
+  userList: user[];
+  onClickLogInButton: (isSavedUser: user | undefined) => void;
 };
 
-const LogedOut = ({ user, onClick }: logInProps) => {
-  //   const [userInfo, setUserInfo] = useState({
-  //     ID: '',
-  //     pwd: ''
-  //   });
+export type user = {
+  ID: string;
+  pwd: string;
+};
 
+const LogedOut = ({ userList, onClickLogInButton }: logInProps) => {
   const [inputs, setInputs] = useState({
     ID: '',
     pwd: ''
@@ -28,6 +28,11 @@ const LogedOut = ({ user, onClick }: logInProps) => {
     if (inputs.ID === '' || inputs.pwd === '') {
       alert('ID 와 비밀번호를 입력하세요.');
     }
+    console.log('userList ::', userList);
+    const isSavedUser: user | undefined = userList.find((user) => {
+      return JSON.stringify(user) === JSON.stringify(inputs);
+    });
+    onClickLogInButton(isSavedUser);
   };
 
   return (

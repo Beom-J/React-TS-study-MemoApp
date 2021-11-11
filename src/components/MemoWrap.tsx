@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import CreateMemo from './CreateMemo';
+import { user } from './LogedOut';
 import { memoProps } from './Memo';
 import MemoList from './MemoList';
 import ViewPage from './ViewPage';
@@ -11,7 +12,7 @@ const makeRandomId = () => {
   return id;
 };
 
-const MemoWrap = () => {
+const MemoWrap = ({ user }: { user: user }) => {
   // 우측 뷰페이지 전환용 bool state
   const [isWritePage, setWritePage] = useState(false);
 
@@ -19,13 +20,13 @@ const MemoWrap = () => {
   const [memoList, setMemoList] = useState([
     {
       id: makeRandomId(),
-      name: 'user1',
+      name: user.ID,
       title: 'title1',
       content: 'content1'
     },
     {
       id: makeRandomId(),
-      name: 'user2',
+      name: user.ID,
       title: 'title2',
       content: 'content2'
     }
@@ -34,7 +35,7 @@ const MemoWrap = () => {
   // create memo state
   const [inputs, setInputs] = useState({
     id: '',
-    name: '',
+    name: user.ID,
     title: '',
     content: ''
   });
@@ -42,13 +43,13 @@ const MemoWrap = () => {
   // view memo state
   const [memo, setMemo] = useState({
     id: '',
-    name: '',
+    name: user.ID,
     title: '',
     content: '메모를 클릭하거나, 새로운 메모를 추가해보세요'
   });
 
   // input 에서 받아온 값 저장용 변수
-  const { id, name, title, content } = inputs;
+  const { id, title, content } = inputs;
 
   // input 에 입력한 값 읽어오는 함수
   const handleDataChange = (
@@ -65,7 +66,7 @@ const MemoWrap = () => {
 
   // input 에 입력한 값을 memo list 에 추가
   const handleCreate = (id: string) => {
-    if (inputs.name === '' || inputs.title === '' || inputs.content === '') {
+    if (inputs.title === '' || inputs.content === '') {
       alert('빈칸을 채워주세요.');
       return;
     }
@@ -74,7 +75,7 @@ const MemoWrap = () => {
     if (id === '') {
       const newMemo = {
         id: makeRandomId(),
-        name,
+        name: user.ID,
         title,
         content
       };
@@ -85,7 +86,7 @@ const MemoWrap = () => {
       const modifiedMemoIndex = memoList.findIndex((memo) => memo.id === id);
       const modifiedMemo = {
         id,
-        name,
+        name: user.ID,
         title,
         content
       };
@@ -96,13 +97,13 @@ const MemoWrap = () => {
 
     setInputs({
       id: '',
-      name: '',
+      name: user.ID,
       title: '',
       content: ''
     });
     setMemo({
       id: '',
-      name: '',
+      name: user.ID,
       title: '',
       content: '메모를 클릭하거나, 새로운 메모를 추가해보세요'
     });
@@ -111,6 +112,10 @@ const MemoWrap = () => {
 
   // write page 로 전환시켜주는 함수
   const handleAddButton = () => {
+    if (user.ID === '') {
+      alert('로그인 후 작성 가능합니다.');
+      return;
+    }
     setWritePage(true);
   };
 
@@ -133,7 +138,7 @@ const MemoWrap = () => {
     setMemoList(newMemoList);
     setMemo({
       id: '',
-      name: '',
+      name: user.ID,
       title: '',
       content: '메모를 클릭하거나, 새로운 메모를 추가해보세요'
     });
@@ -151,7 +156,7 @@ const MemoWrap = () => {
         {isWritePage ? (
           <CreateMemo
             id={id}
-            name={name}
+            name={user.ID}
             title={title}
             content={content}
             onDataChange={handleDataChange}
