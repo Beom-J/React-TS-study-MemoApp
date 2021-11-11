@@ -1,0 +1,27 @@
+.sign-up {
+  background-color: #ede7dc;
+  height: 93vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-weight: bold;
+}
+
+.sign-up span {
+  font-weight: bold;
+}
+
+.sign-up input {
+  width: 200px;
+  height: 40px;
+}
+
+.sign-up button {
+  width: 100px;
+  height: 30px;
+  font-weight: bold;
+  color: black;
+  background-color: #ccafa5;
+  margin-left: 10px;
+}

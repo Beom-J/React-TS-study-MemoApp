@@ -9,7 +9,7 @@ type memo = {
 const ViewPage = ({ memo, onClickModifyButton, onClickDeleteButton }: memo) => {
   return (
     <>
-      {memo.name !== '' ? (
+      {memo.title !== '' ? (
         <div>
           <button
             type="button"
@@ -31,7 +31,7 @@ const ViewPage = ({ memo, onClickModifyButton, onClickDeleteButton }: memo) => {
       )}
 
       <div className="view-page">
-        <div className="name">{memo.name}</div>
+        {memo.title === '' ? '' : <div className="name">{memo.name}</div>}
         <div className="title">{memo.title}</div>
         <div className="content">{memo.content}</div>
       </div>

@@ -30,6 +30,7 @@ function CreateMemo({
         placeholder="이름입력"
         onChange={onDataChange}
         value={name}
+        disabled
       />
       &nbsp;&nbsp;
       <input
