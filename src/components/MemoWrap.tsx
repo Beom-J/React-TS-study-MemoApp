@@ -89,6 +89,8 @@ const MemoWrap = () => {
         title,
         content
       };
+      // state 직접 수정하지 말고 새로운 배열 만들어서 loop 돌며 비교
+      // id 값 같은 애 만나면 걔만 갈아끼우고 새로운 배열로 setState 해주기
       memoList.splice(modifiedMemoIndex, 1, modifiedMemo);
     }
 
