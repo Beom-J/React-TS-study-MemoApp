@@ -14,7 +14,6 @@ const makeRandomId = () => {
 const MemoWrap = ({ user }: { user: user }) => {
   // 우측 뷰페이지 전환용 bool state
   const [isWritePage, setWritePage] = useState(false);
-  console.log('..');
   // memo list state
   const [memoList, setMemoList] = useState([
     {
@@ -76,16 +75,17 @@ const MemoWrap = ({ user }: { user: user }) => {
     }
     // 수정할 경우는 해당 id 값의 글만 수정
     if (id !== '') {
-      const modifiedMemoIndex = memoList.findIndex((memo) => memo.id === id);
       const modifiedMemo = {
         id,
         name: user.ID,
         title,
         content
       };
-      // state 직접 수정하지 말고 새로운 배열 만들어서 loop 돌며 비교
-      // id 값 같은 애 만나면 걔만 갈아끼우고 새로운 배열로 setState 해주기
-      memoList.splice(modifiedMemoIndex, 1, modifiedMemo);
+      const tmp: memoProps[] = [];
+      memoList.forEach((memo) =>
+        memo.id === id ? tmp.push(modifiedMemo) : tmp.push(memo)
+      );
+      setMemoList(tmp);
     }
 
     setInputs({
