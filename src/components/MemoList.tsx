@@ -1,4 +1,4 @@
-import { memoProps } from '../Types';
+import { memoProps } from '../Types/Types';
 import Memo from './Memo';
 
 type memoList = {

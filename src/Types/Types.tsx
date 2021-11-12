@@ -1,11 +1,11 @@
-export type memoProps = {
+export type Memo = {
   id: string;
   name: string;
   title: string;
   content: string;
 };
 
-export type user = {
+export type User = {
   ID: string;
   pwd: string;
 };

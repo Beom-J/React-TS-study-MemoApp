@@ -1,15 +1,21 @@
-import { memoProps } from '../Types';
+import { memoProps } from '../Types/Types';
 
 type memo = {
   memo: memoProps;
+  userID: string;
   onClickModifyButton: (memo: memoProps) => void;
   onClickDeleteButton: (memo: memoProps) => void;
 };
 
-const ViewPage = ({ memo, onClickModifyButton, onClickDeleteButton }: memo) => {
+const ViewPage = ({
+  memo,
+  userID,
+  onClickModifyButton,
+  onClickDeleteButton
+}: memo) => {
   return (
     <>
-      {memo.title !== '' ? (
+      {memo.title !== '' && userID === memo.name && userID !== '' ? (
         <div>
           <button
             type="button"

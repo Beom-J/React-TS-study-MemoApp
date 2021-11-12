@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { memoProps, user } from '../Types';
+import { memoProps, user } from '../Types/Types';
 import CreateMemo from './CreateMemo';
 import MemoList from './MemoList';
 import ViewPage from './ViewPage';
@@ -57,7 +57,9 @@ const MemoWrap = ({ user }: { user: user }) => {
   };
 
   // input 에 입력한 값을 memo list 에 추가
-  const handleCreate = (id: string) => {
+  const handleSaveMemo = (id: string) => {
+    checkLogIn(user);
+
     if (inputs.title === '' || inputs.content === '') {
       alert('빈칸을 채워주세요.');
       return;
@@ -100,12 +102,19 @@ const MemoWrap = ({ user }: { user: user }) => {
       title: '',
       content: '메모를 클릭하거나, 새로운 메모를 추가해보세요'
     });
-    setWritePage(checkLogIn(user));
+    setWritePage(false);
   };
 
   function checkLogIn(user: user) {
     if (user.ID === '') {
       alert('로그인 후 사용 가능합니다.');
+      return false;
+    }
+    return true;
+  }
+
+  function checkAthority(userID: string, memo: memoProps) {
+    if (userID !== memo.name) {
       return false;
     }
     return true;
@@ -119,17 +128,29 @@ const MemoWrap = ({ user }: { user: user }) => {
   // memo 클릭시 해당 memo 값을 들고 뷰페이지로 전환
   const handleClickMemo = (memo: memoProps) => {
     setWritePage(false);
+    if (memo.name === '') {
+      setMemo({ ...memo, name: user.ID });
+      return;
+    }
     setMemo(memo);
   };
 
   // 수정 버튼 누를 시 동작
   const handleModifyButton = (memo: memoProps) => {
+    if (!checkAthority(user.ID, memo)) {
+      alert('권한이 없습니다.');
+      return;
+    }
     setInputs(memo);
     setWritePage(checkLogIn(user));
   };
 
   // 삭제 버튼 누를 시 동작
   const handleDeleteButton = (memo: memoProps) => {
+    if (!checkAthority(user.ID, memo)) {
+      alert('권한이 없습니다.');
+      return;
+    }
     if (checkLogIn(user)) {
       const newMemoList: memoProps[] = memoList.filter(
         (originalMemo) => originalMemo !== memo
@@ -160,11 +181,12 @@ const MemoWrap = ({ user }: { user: user }) => {
             title={title}
             content={content}
             onDataChange={handleDataChange}
-            onCreate={handleCreate}
+            onCreate={handleSaveMemo}
           />
         ) : (
           <ViewPage
             memo={memo}
+            userID={user.ID}
             onClickModifyButton={handleModifyButton}
             onClickDeleteButton={handleDeleteButton}
           />
