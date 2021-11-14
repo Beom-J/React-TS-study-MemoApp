@@ -1,4 +1,4 @@
-export type Memo = {
+export type MemoType = {
   id: string;
   name: string;
   title: string;
@@ -6,6 +6,6 @@ export type Memo = {
 };
 
 export type User = {
-  ID: string;
-  pwd: string;
+  id: string;
+  password: string;
 };

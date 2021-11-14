@@ -1,8 +1,12 @@
-import { memoProps } from '../Types/Types';
-
+type MemoType = {
+  id: string;
+  name: string;
+  title: string;
+  content: string;
+};
 type memo = {
-  memo: memoProps;
-  onClick: (memo: memoProps) => void;
+  memo: MemoType;
+  onClick: (memo: MemoType) => void;
 };
 
 function Memo({ memo, onClick }: memo) {
