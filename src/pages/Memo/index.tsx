@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { memoProps, user } from '../Types/Types';
-import CreateMemo from './CreateMemo';
-import MemoList from './MemoList';
-import ViewPage from './ViewPage';
+import { LocalStorageKey } from '../../core/constants';
+import { MemoType } from '../../types/Types';
+import CreateMemo from '../../components/memo/CreateMemo';
+import Memos from '../../components/memo/Memos';
+import ViewPage from '../../components/memo/ViewPage';
 
 const makeRandomId = () => {
   const id =
@@ -11,14 +12,14 @@ const makeRandomId = () => {
   return id;
 };
 
-const MemoWrap = ({ user }: { user: user }) => {
-  // 우측 뷰페이지 전환용 bool state
-  const [isWritePage, setWritePage] = useState(false);
+const Memo = ({ userId }: { userId: string }) => {
+  // 우측 뷰 섹션 전환용 bool state
+  const [isWriteMemoSection, setWriteMemoSection] = useState(false);
   // memo list state
-  const [memoList, setMemoList] = useState([
+  const [memos, setMemos] = useState([
     {
       id: makeRandomId(),
-      name: user.ID,
+      name: userId,
       title: '임시글 입니다!',
       content: '로그인 후 자유롭게 수정해보세요~'
     }
@@ -27,7 +28,7 @@ const MemoWrap = ({ user }: { user: user }) => {
   // create memo state
   const [inputs, setInputs] = useState({
     id: '',
-    name: user.ID,
+    name: userId,
     title: '',
     content: ''
   });
@@ -35,7 +36,7 @@ const MemoWrap = ({ user }: { user: user }) => {
   // view memo state
   const [memo, setMemo] = useState({
     id: '',
-    name: user.ID,
+    name: userId,
     title: '',
     content: '메모를 클릭하거나, 새로운 메모를 추가해보세요'
   });
@@ -58,7 +59,7 @@ const MemoWrap = ({ user }: { user: user }) => {
 
   // input 에 입력한 값을 memo list 에 추가
   const handleSaveMemo = (id: string) => {
-    checkLogIn(user);
+    checkLogIn();
 
     if (inputs.title === '' || inputs.content === '') {
       alert('빈칸을 채워주세요.');
@@ -69,52 +70,52 @@ const MemoWrap = ({ user }: { user: user }) => {
     if (id === '') {
       const newMemo = {
         id: makeRandomId(),
-        name: user.ID,
+        name: userId,
         title,
         content
       };
-      setMemoList([...memoList, newMemo]);
+      setMemos([...memos, newMemo]);
     }
     // 수정할 경우는 해당 id 값의 글만 수정
     if (id !== '') {
       const modifiedMemo = {
         id,
-        name: user.ID,
+        name: userId,
         title,
         content
       };
-      const tmp: memoProps[] = [];
-      memoList.forEach((memo) =>
+      const tmp: MemoType[] = [];
+      memos.forEach((memo) =>
         memo.id === id ? tmp.push(modifiedMemo) : tmp.push(memo)
       );
-      setMemoList(tmp);
+      setMemos(tmp);
     }
 
     setInputs({
       id: '',
-      name: user.ID,
+      name: userId,
       title: '',
       content: ''
     });
     setMemo({
       id: '',
-      name: user.ID,
+      name: userId,
       title: '',
       content: '메모를 클릭하거나, 새로운 메모를 추가해보세요'
     });
-    setWritePage(false);
+    setWriteMemoSection(false);
   };
 
-  function checkLogIn(user: user) {
-    if (user.ID === '') {
+  function checkLogIn() {
+    if (userId === '') {
       alert('로그인 후 사용 가능합니다.');
       return false;
     }
     return true;
   }
 
-  function checkAthority(userID: string, memo: memoProps) {
-    if (userID !== memo.name) {
+  function checkAthority(userId: string, memo: MemoType) {
+    if (userId !== memo.name) {
       return false;
     }
     return true;
@@ -122,43 +123,43 @@ const MemoWrap = ({ user }: { user: user }) => {
 
   // write page 로 전환시켜주는 함수
   const handleAddButton = () => {
-    setWritePage(checkLogIn(user));
+    setWriteMemoSection(checkLogIn());
   };
 
   // memo 클릭시 해당 memo 값을 들고 뷰페이지로 전환
-  const handleClickMemo = (memo: memoProps) => {
-    setWritePage(false);
+  const handleClickMemo = (memo: MemoType) => {
+    setWriteMemoSection(false);
     if (memo.name === '') {
-      setMemo({ ...memo, name: user.ID });
+      setMemo({ ...memo, name: userId });
       return;
     }
     setMemo(memo);
   };
 
   // 수정 버튼 누를 시 동작
-  const handleModifyButton = (memo: memoProps) => {
-    if (!checkAthority(user.ID, memo)) {
+  const handleModifyButton = (memo: MemoType) => {
+    if (!checkAthority(userId, memo)) {
       alert('권한이 없습니다.');
       return;
     }
     setInputs(memo);
-    setWritePage(checkLogIn(user));
+    setWriteMemoSection(checkLogIn());
   };
 
   // 삭제 버튼 누를 시 동작
-  const handleDeleteButton = (memo: memoProps) => {
-    if (!checkAthority(user.ID, memo)) {
+  const handleDeleteButton = (memo: MemoType) => {
+    if (!checkAthority(userId, memo)) {
       alert('권한이 없습니다.');
       return;
     }
-    if (checkLogIn(user)) {
-      const newMemoList: memoProps[] = memoList.filter(
+    if (checkLogIn()) {
+      const newMemoList: MemoType[] = memos.filter(
         (originalMemo) => originalMemo !== memo
       );
-      setMemoList(newMemoList);
+      setMemos(newMemoList);
       setMemo({
         id: '',
-        name: user.ID,
+        name: userId,
         title: '',
         content: '메모를 클릭하거나, 새로운 메모를 추가해보세요'
       });
@@ -166,18 +167,18 @@ const MemoWrap = ({ user }: { user: user }) => {
   };
 
   return (
-    <div className="memo-warap">
+    <div className="memo-warrap">
       <div className="memo-list">
         <button className="add-btn" type="button" onClick={handleAddButton}>
           메모 추가
         </button>
-        <MemoList memoList={memoList} onClick={handleClickMemo} />
+        <Memos memos={memos} onClick={handleClickMemo} />
       </div>
       <div className="memo-view">
-        {isWritePage ? (
+        {isWriteMemoSection ? (
           <CreateMemo
             id={id}
-            name={user.ID}
+            name={userId}
             title={title}
             content={content}
             onDataChange={handleDataChange}
@@ -186,7 +187,7 @@ const MemoWrap = ({ user }: { user: user }) => {
         ) : (
           <ViewPage
             memo={memo}
-            userID={user.ID}
+            userID={userId}
             onClickModifyButton={handleModifyButton}
             onClickDeleteButton={handleDeleteButton}
           />
@@ -196,4 +197,4 @@ const MemoWrap = ({ user }: { user: user }) => {
   );
 };
 
-export default MemoWrap;
+export default Memo;

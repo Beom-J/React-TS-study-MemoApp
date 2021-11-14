@@ -1,10 +1,10 @@
-import { memoProps } from '../Types/Types';
+import { MemoType } from '../../types/Types';
 
 type memo = {
-  memo: memoProps;
+  memo: MemoType;
   userID: string;
-  onClickModifyButton: (memo: memoProps) => void;
-  onClickDeleteButton: (memo: memoProps) => void;
+  onClickModifyButton: (memo: MemoType) => void;
+  onClickDeleteButton: (memo: MemoType) => void;
 };
 
 const ViewPage = ({

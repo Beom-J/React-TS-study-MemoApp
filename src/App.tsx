@@ -1,87 +1,46 @@
 import { useState } from 'react';
-import './App.css';
-import LogedIn from './components/LogedIn';
-import LogedOut from './components/LogedOut';
-import MemoWrap from './components/MemoWrap';
-import SignUp from './components/SignUp';
-import { User } from './Types/Types';
-
-function getUsersFromLocalStage() {
-  const userIDs: string[] = Object.keys(window.localStorage);
-  const users: User[] = userIDs.map((key) => {
-    return {
-      ID: key,
-      pwd: window.localStorage.getItem(key) || ''
-    };
-  });
-  return users;
-}
+import { Link, Route, Routes } from 'react-router-dom';
+import LoginUserInfo from './components/login/LoginUserInfo';
+import { LocalStorageKey } from './core/constants';
+import Login from './pages/Login';
+import Memo from './pages/Memo';
+import SignUp from './pages/SignUp';
+import './style/GlobalStyle.css';
 
 function App() {
-  // section 전환용 boolean
-  const [isLoggedIn, setIsLogin] = useState(false);
-  const [isNeedSignUp, setIsNeedSignUp] = useState(true);
+  const [loginUserId, setLoginUserId] = useState(
+    // 로컬 스토리지에 로그인한 아이디가 없으면 ''
+    window.localStorage.getItem(LocalStorageKey.loginUser) || ''
+  );
 
-  // local Storage 에 저장된 유저 리스트 목록
-  const signedUsers = getUsersFromLocalStage();
-
-  // 현재 로그인한 유저 정보
-  const [loggedUser, setLoggedUser] = useState({
-    ID: '',
-    pwd: ''
-  });
-
-  const handleLogInButton = (isSignedUser: User | undefined) => {
-    if (!isSignedUser) {
-      alert('등록된 회원이 아닙니다.');
-      return;
-    }
-    setLoggedUser(isSignedUser);
-    setIsLogin(true);
-    setIsNeedSignUp(false);
-  };
-
-  const handleSignUpButton = () => {
-    setIsNeedSignUp(true);
-  };
-
-  const handleSaveUserButton = () => {
-    setIsNeedSignUp(false);
-  };
-
-  const handleLogOutButton = () => {
-    setLoggedUser({ ID: '', pwd: '' });
-    setIsLogin(false);
+  const handleLogOutClick = () => {
+    window.localStorage.removeItem(LocalStorageKey.loginUser);
+    setLoginUserId('');
   };
 
   return (
-    <div className="warap">
+    <div className="warrap-app">
       <nav className="nav">
         <div>
-          <button type="button" onClick={handleSignUpButton}>
-            회원가입
-          </button>
+          <Link to="/signup">회원가입</Link>
         </div>
         <div className="log-in">
-          {isLoggedIn ? (
-            <LogedOut
-              user={loggedUser}
-              onClickLogOutButton={handleLogOutButton}
+          {loginUserId ? (
+            <LoginUserInfo
+              userId={loginUserId}
+              onClickLogOutButton={handleLogOutClick}
             />
           ) : (
-            <LogedIn
-              users={signedUsers}
-              onClickLogInButton={handleLogInButton}
-            />
+            <Link to="/login">로그인</Link>
           )}
         </div>
       </nav>
-      <div hidden={!isNeedSignUp}>
-        <MemoWrap user={loggedUser} />
-      </div>
-      <div hidden={isNeedSignUp}>
-        <SignUp onClickSaveButton={handleSaveUserButton} />
-      </div>
+      <Routes>
+        <Route path="/" element={<Memo userId={loginUserId} />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login onLogin={setLoginUserId} />} />
+        <Route path="/memo" element={<Memo userId={loginUserId} />} />
+      </Routes>
     </div>
   );
 }

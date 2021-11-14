@@ -1,14 +1,14 @@
-import { User } from '../Types/Types';
+import { User } from '../../types/Types';
 
 type Props = {
-  user: User;
+  userId: string;
   onClickLogOutButton: () => void;
 };
 
-const LogedIn = ({ user, onClickLogOutButton }: Props) => {
+const LoginUserInfo = ({ userId, onClickLogOutButton }: Props) => {
   return (
     <div>
-      <span> 안녕하세요, {user.ID}님! </span>
+      <span> 안녕하세요, {userId}님! </span>
       <button
         className="log-in-btn"
         type="button"
@@ -20,4 +20,4 @@ const LogedIn = ({ user, onClickLogOutButton }: Props) => {
   );
 };
 
-export default LogedIn;
+export default LoginUserInfo;

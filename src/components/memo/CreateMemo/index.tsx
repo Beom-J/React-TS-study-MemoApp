@@ -1,4 +1,4 @@
-import '../css/Memo-Wrap.css';
+import './style.css';
 
 type props = {
   id: string;
