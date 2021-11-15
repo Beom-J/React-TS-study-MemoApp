@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 import WriteMemo from './WriteMemo';
 import { LocalStorageKey } from '../../core/constants';
@@ -9,6 +10,8 @@ import ModifyMemo from './ModifyMemo';
 import './style.css';
 
 const Memo = ({ userId }: { userId: string }) => {
+  const { t, i18n } = useTranslation();
+
   const navigate = useNavigate();
 
   const defaultMemos = [
@@ -16,7 +19,7 @@ const Memo = ({ userId }: { userId: string }) => {
       contentId: '',
       name: '',
       title: '',
-      content: '메모를 클릭하거나, 새로운 메모를 추가해보세요'
+      content: i18n.t('message.defaultContentMessage')
     }
   ];
 
@@ -33,7 +36,7 @@ const Memo = ({ userId }: { userId: string }) => {
     contentId: '',
     name: userId,
     title: '',
-    content: '메모를 클릭하거나, 새로운 메모를 추가해보세요'
+    content: i18n.t('message.defaultContentMessage')
   });
 
   // 새로운 글 작성했을때 리스트 리렌더링
@@ -57,7 +60,6 @@ const Memo = ({ userId }: { userId: string }) => {
 
   // 수정 버튼 누를 시 동작
   const handleModifyButton = () => {
-    console.log('수정버튼 클릭');
     navigate('/memo/modifymemo');
   };
 
@@ -75,7 +77,7 @@ const Memo = ({ userId }: { userId: string }) => {
       contentId: '',
       name: userId,
       title: '',
-      content: '메모를 클릭하거나, 새로운 메모를 추가해보세요'
+      content: i18n.t('message.defaultContentMessage')
     });
   };
 
@@ -83,7 +85,7 @@ const Memo = ({ userId }: { userId: string }) => {
     <div className="memo-warrap">
       <div className="memo-list">
         <Link to="/memo/writememo" className="add-btn">
-          메모 추가
+          {t('button.writeMemo')}
         </Link>
         <Memos memos={memos} onClick={handleClickMemo} />
       </div>

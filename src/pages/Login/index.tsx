@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { LocalStorageKey } from '../../core/constants';
 import './style.css';
 
 function Login({ onLogin }: { onLogin: (id: string) => void }) {
+  const { t, i18n } = useTranslation();
+
   // 저장 버튼 누르면 /memo 로 이동
   const navigate = useNavigate();
   // input 에 적힌 내용으로 state 설정
@@ -22,7 +25,7 @@ function Login({ onLogin }: { onLogin: (id: string) => void }) {
 
   const handleLogInClick = () => {
     if (inputs.id === '' || inputs.password === '') {
-      alert('ID 와 비밀번호를 입력하세요.');
+      alert(i18n.t('alert.inputIdAndPassword'));
       return;
     }
 
@@ -36,30 +39,30 @@ function Login({ onLogin }: { onLogin: (id: string) => void }) {
       onLogin(inputs.id);
       navigate('/memo');
     } else {
-      alert('잘 못된 입력입니다. 아이디와 비밀번호를 확인하세요.');
+      alert(i18n.t('alert.incorrectUsernameOrPassword'));
     }
   };
 
   return (
     <div className="login-body">
-      <span> ID : </span>&nbsp;
+      <span> {t('input.id')} : </span>&nbsp;
       <input
         type="text"
         name="id"
-        placeholder="ID를 입력하세요"
+        placeholder={t('input.pleaseId')}
         onChange={handleInputValue}
       />
       <br />
-      <span> 비밀번호 : </span>&nbsp;
+      <span> {t('input.password')} : </span>&nbsp;
       <input
         type="password"
         name="password"
-        placeholder="비밀번호를 입력하세요"
+        placeholder={t('input.pleasePassword')}
         onChange={handleInputValue}
       />
       <br />
       <button className="log-in-btn" type="button" onClick={handleLogInClick}>
-        Log-In
+        {t('button.logIn')}
       </button>
     </div>
   );

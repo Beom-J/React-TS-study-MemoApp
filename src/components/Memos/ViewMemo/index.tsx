@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { MemoType } from '../../../types/MemoType';
 
 type memo = {
@@ -13,6 +14,7 @@ const ViewMemo = ({
   onClickModifyButton,
   onClickDeleteButton
 }: memo) => {
+  const { t, i18n } = useTranslation();
   return (
     <>
       {memo.title !== '' && userID === memo.name && userID !== '' ? (
@@ -22,14 +24,14 @@ const ViewMemo = ({
             className="modify"
             onClick={() => onClickModifyButton(memo)}
           >
-            수정
+            {t('button.modify')}
           </button>
           <button
             type="button"
             className="delete"
             onClick={() => onClickDeleteButton(memo)}
           >
-            삭제
+            {t('button.delete')}
           </button>
         </div>
       ) : (

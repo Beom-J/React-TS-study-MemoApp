@@ -1,0 +1,31 @@
+{
+  "message": {
+    "defaultContentMessage": "Please try to click memo, or write new memo.",
+    "welcomeToLogIn": "Greetings",
+    "welcomeToSign": "Welcome to join us!"
+  },
+  "alert": {
+    "inputIdAndPassword": "Please enter your ID & Passwords.",
+    "incorrectUsernameOrPassword": "Incorrect username or password. Please check again.",
+    "emptyInputCheck": "Please fill in the blanks.",
+    "signUpDbCheck": "This ID is already registered.",
+    "logInCheck": "Available after logging in."
+  },
+  "input": {
+    "id": "ID",
+    "password": "passwords",
+    "pleaseId": "Please Enter ID",
+    "pleasePassword": "Please Enter passwords",
+    "pleaseTitle": "Enter title",
+    "pleaseContent": "Enter content"
+  },
+  "button": {
+    "logIn": "Log-In",
+    "logOut": "Log-Out",
+    "signUp": "Sign Up",
+    "save": "save",
+    "modify": "modify",
+    "delete": "delete",
+    "writeMemo": "write memo"
+  }
+}

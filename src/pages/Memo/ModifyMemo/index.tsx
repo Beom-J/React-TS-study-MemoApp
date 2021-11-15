@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { LocalStorageKey } from '../../../core/constants';
 import { MemoType } from '../../../types/MemoType';
@@ -10,6 +11,7 @@ type props = {
 };
 
 function ModifyMemo({ userId, contentId, onCreate }: props) {
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
   const emptyMemos = [
@@ -59,11 +61,11 @@ function ModifyMemo({ userId, contentId, onCreate }: props) {
   // input 에 입력한 값 검사
   const handleSaveMemoClick = () => {
     if (inputs.name === '') {
-      alert('로그인 후 사용 가능합니다.');
+      alert(i18n.t('alert.logInCheck'));
       return;
     }
     if (inputs.title === '' || inputs.content === '') {
-      alert('빈칸을 채워주세요.');
+      alert(i18n.t('alert.emptyInputCheck'));
       return;
     }
 
@@ -90,7 +92,7 @@ function ModifyMemo({ userId, contentId, onCreate }: props) {
         className="name"
         type="text"
         name="name"
-        placeholder="로그인 후 이용 가능합니다."
+        placeholder={t('alert.logInCheck')}
         onChange={handleDataChange}
         value={userId}
         disabled
@@ -100,7 +102,7 @@ function ModifyMemo({ userId, contentId, onCreate }: props) {
         className="title"
         type="text"
         name="title"
-        placeholder="제목입력"
+        placeholder={t('input.pleaseTitle')}
         onChange={handleDataChange}
         value={title}
       />
@@ -108,13 +110,13 @@ function ModifyMemo({ userId, contentId, onCreate }: props) {
       <textarea
         className="content"
         name="content"
-        placeholder="내용입력"
+        placeholder={t('input.pleaseContent')}
         onChange={handleDataChange}
         value={content}
       />
       &nbsp;&nbsp;
       <button onClick={handleSaveMemoClick} type="button">
-        저장
+        {t('button.save')}
       </button>
     </div>
   );

@@ -1,10 +1,13 @@
 import { ChangeEvent, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { LocalStorageKey } from '../../core/constants';
 import { User } from '../../types/UserType';
 import './style.css';
 
 const SignUp = () => {
+  const { t, i18n } = useTranslation();
+
   // 저장 버튼 누르면 /memo 로 이동
   const navigate = useNavigate();
   // input 에 적힌 내용으로 state 설정
@@ -23,7 +26,7 @@ const SignUp = () => {
 
   const handleSaveUser = () => {
     if (inputs.id === '' || inputs.password === '') {
-      alert('빈칸을 채워주세요');
+      alert(i18n.t('alert.emptyInputCheck'));
       return;
     }
 
@@ -35,7 +38,7 @@ const SignUp = () => {
         (user: User) => user.id
       );
       if (userIds.includes(inputs.id)) {
-        alert('이미 가입 된 아이디 입니다.');
+        alert(i18n.t('alert.signUpDbCheck'));
         return;
       }
 
@@ -63,25 +66,25 @@ const SignUp = () => {
 
   return (
     <div className="sign-up">
-      <h3>회원가입을 환영합니다!</h3>
-      <span>ID : </span>
+      <h3>{t('message.welcomeToSign')}</h3>
+      <span>{t('input.id')} : </span>
       <input
         type="text"
         name="id"
-        placeholder="ID 를 입력하세요"
+        placeholder={t('input.pleaseId')}
         onChange={handleDataChange}
       />
       <br />
-      <span>비밀번호 : </span>
+      <span>{t('input.password')} : </span>
       <input
         type="password"
         name="password"
-        placeholder="비밀번호를 입력하세요"
+        placeholder={t('input.pleasePassword')}
         onChange={handleDataChange}
       />
       <br />
       <button type="button" onClick={handleSaveUser}>
-        저장
+        {t('button.save')}
       </button>
     </div>
   );

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link, Route, Routes } from 'react-router-dom';
 import Logout from './components/Logout';
 import { LocalStorageKey } from './core/constants';
@@ -8,6 +9,11 @@ import SignUp from './pages/SignUp';
 import './style/GlobalStyle.css';
 
 function App() {
+  const { t, i18n } = useTranslation();
+
+  const changeLanguageToKo = () => i18n.changeLanguage('ko');
+  const changeLanguageToEn = () => i18n.changeLanguage('en');
+
   const [loginUserId, setLoginUserId] = useState(
     // 로컬 스토리지에 로그인한 아이디가 없으면 ''
     window.localStorage.getItem(LocalStorageKey.loginUser) || ''
@@ -24,8 +30,14 @@ function App() {
     <div className="warrap-app">
       <nav className="nav">
         <div>
-          <Link to="/signup">회원가입</Link>
+          <Link to="/signup">{t('button.signUp')}</Link>
         </div>
+        <button className="en" type="button" onClick={changeLanguageToEn}>
+          English
+        </button>
+        <button className="ko" type="button" onClick={changeLanguageToKo}>
+          한국어
+        </button>
         <div className="log-in">
           {loginUserId ? (
             <Logout
@@ -33,7 +45,7 @@ function App() {
               onClickLogOutButton={handleLogOutClick}
             />
           ) : (
-            <Link to="/login">로그인</Link>
+            <Link to="/login">{t('button.logIn')}</Link>
           )}
         </div>
       </nav>
