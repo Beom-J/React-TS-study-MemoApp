@@ -1,4 +1,4 @@
-import { MemoType } from '../../types/Types';
+import { MemoType } from '../../../types/MemoType';
 
 type memo = {
   memo: MemoType;
@@ -7,7 +7,7 @@ type memo = {
   onClickDeleteButton: (memo: MemoType) => void;
 };
 
-const ViewPage = ({
+const ViewMemo = ({
   memo,
   userID,
   onClickModifyButton,
@@ -36,7 +36,7 @@ const ViewPage = ({
         ''
       )}
 
-      <div className="view-page">
+      <div className="view-memo">
         {memo.title === '' ? '' : <div className="name">{memo.name}</div>}
         <div className="title">{memo.title}</div>
         <div className="content">{memo.content}</div>
@@ -45,4 +45,4 @@ const ViewPage = ({
   );
 };
 
-export default ViewPage;
+export default ViewMemo;

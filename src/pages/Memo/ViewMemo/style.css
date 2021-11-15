@@ -1,0 +1,17 @@
+.memo-view .buttons {
+  text-align: end;
+}
+
+.memo-view .top {
+  padding: 0;
+}
+
+.memo-view .title {
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.memo-view .id {
+  font-size: 20px;
+  text-align: right;
+}

@@ -1,10 +1,13 @@
 import { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { LocalStorageKey } from '../../core/constants';
+import { User } from '../../types/UserType';
 import './style.css';
 
 const SignUp = () => {
+  // 저장 버튼 누르면 /memo 로 이동
   const navigate = useNavigate();
+  // input 에 적힌 내용으로 state 설정
   const [inputs, setInputs] = useState({
     id: '',
     password: ''
@@ -27,14 +30,24 @@ const SignUp = () => {
     const localDbUsers = window.localStorage.getItem(LocalStorageKey.users);
 
     if (localDbUsers) {
-      // localDbUsers 아이디랑 일치 하는 유효성 추가하기!
+      // 중복 아이디 유효성 검사
+      const userIds: string[] = JSON.parse(localDbUsers).map(
+        (user: User) => user.id
+      );
+      if (userIds.includes(inputs.id)) {
+        alert('이미 가입 된 아이디 입니다.');
+        return;
+      }
 
-      // 있으면 기존 정보에 1개 더 추가
+      // 저장된 id 있으면 기존 배열에 1개 더 추가
       window.localStorage.setItem(
         LocalStorageKey.users,
         JSON.stringify([
-          JSON.parse(localDbUsers),
-          { id: inputs.id, password: inputs.password }
+          ...JSON.parse(localDbUsers),
+          {
+            id: inputs.id,
+            password: inputs.password
+          }
         ])
       );
     } else {
@@ -44,7 +57,7 @@ const SignUp = () => {
         JSON.stringify([{ id: inputs.id, password: inputs.password }])
       );
     }
-
+    // 로컬 스토리지에 저장 완료 후 /memo 페이지로 이동
     navigate('/memo');
   };
 

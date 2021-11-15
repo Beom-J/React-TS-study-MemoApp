@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
-import LoginUserInfo from './components/login/LoginUserInfo';
+import Logout from './components/Logout';
 import { LocalStorageKey } from './core/constants';
 import Login from './pages/Login';
 import Memo from './pages/Memo';
@@ -14,7 +14,9 @@ function App() {
   );
 
   const handleLogOutClick = () => {
+    // 로그아웃 하면 local 정보 지우기
     window.localStorage.removeItem(LocalStorageKey.loginUser);
+    // state 정보도 리셋 -> 렌더링
     setLoginUserId('');
   };
 
@@ -26,7 +28,7 @@ function App() {
         </div>
         <div className="log-in">
           {loginUserId ? (
-            <LoginUserInfo
+            <Logout
               userId={loginUserId}
               onClickLogOutButton={handleLogOutClick}
             />
@@ -39,7 +41,7 @@ function App() {
         <Route path="/" element={<Memo userId={loginUserId} />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login onLogin={setLoginUserId} />} />
-        <Route path="/memo" element={<Memo userId={loginUserId} />} />
+        <Route path="/memo/*" element={<Memo userId={loginUserId} />} />
       </Routes>
     </div>
   );
