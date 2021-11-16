@@ -1,5 +1,5 @@
 type MemoType = {
-  id: string;
+  contentId: string;
   name: string;
   title: string;
   content: string;

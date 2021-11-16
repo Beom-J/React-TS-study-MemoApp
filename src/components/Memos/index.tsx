@@ -1,4 +1,4 @@
-import { MemoType } from '../../types/Types';
+import { MemoType } from '../../types/MemoType';
 import Memo from './Memo';
 
 type memos = {
@@ -6,16 +6,16 @@ type memos = {
   onClick: (memo: MemoType) => void;
 };
 
-function Memos({ memos, onClick }: memos) {
+const Memos = ({ memos, onClick }: memos) => {
   return (
     <div>
       <ul>
         {memos.map((memo: MemoType) => {
-          return <Memo memo={memo} key={memo.id} onClick={onClick} />;
+          return <Memo memo={memo} key={memo.contentId} onClick={onClick} />;
         })}
       </ul>
     </div>
   );
-}
+};
 
 export default Memos;

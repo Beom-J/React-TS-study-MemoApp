@@ -1,0 +1,31 @@
+{
+  "message": {
+    "defaultContentMessage": "메모를 클릭하거나, 새로운 메모를 추가해보세요",
+    "welcomeToLogIn": "안녕하세요",
+    "welcomeToSign": "회원가입을 환영합니다!"
+  },
+  "alert": {
+    "inputIdAndPassword": "아이디와 비밀번호를 입력하세요.",
+    "incorrectUsernameOrPassword": "잘 못된 입력입니다. 아이디와 비밀번호를 확인하세요.",
+    "emptyInputCheck": "빈칸을 채워주세요",
+    "signUpDbCheck": "이미 가입 된 아이디 입니다.",
+    "logInCheck": "로그인 후 사용 가능합니다."
+  },
+  "input": {
+    "id": "아이디",
+    "password": "비밀번호",
+    "pleaseId": "ID를 입력하세요",
+    "pleasePassword": "비밀번호를 입력하세요",
+    "pleaseTitle": "제목 입력",
+    "pleaseContent": "내용입력"
+  },
+  "button": {
+    "logIn": "로그인",
+    "logOut": "로그아웃",
+    "signUp": "회원 가입",
+    "save": "저장",
+    "modify": "수정",
+    "delete": "삭제",
+    "writeMemo": "메모 추가"
+  }
+}

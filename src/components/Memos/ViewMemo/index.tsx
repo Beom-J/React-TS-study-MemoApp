@@ -1,4 +1,5 @@
-import { MemoType } from '../../types/Types';
+import { useTranslation } from 'react-i18next';
+import { MemoType } from '../../../types/MemoType';
 
 type memo = {
   memo: MemoType;
@@ -7,12 +8,13 @@ type memo = {
   onClickDeleteButton: (memo: MemoType) => void;
 };
 
-const ViewPage = ({
+const ViewMemo = ({
   memo,
   userID,
   onClickModifyButton,
   onClickDeleteButton
 }: memo) => {
+  const { t, i18n } = useTranslation();
   return (
     <>
       {memo.title !== '' && userID === memo.name && userID !== '' ? (
@@ -22,21 +24,21 @@ const ViewPage = ({
             className="modify"
             onClick={() => onClickModifyButton(memo)}
           >
-            수정
+            {t('button.modify')}
           </button>
           <button
             type="button"
             className="delete"
             onClick={() => onClickDeleteButton(memo)}
           >
-            삭제
+            {t('button.delete')}
           </button>
         </div>
       ) : (
         ''
       )}
 
-      <div className="view-page">
+      <div className="view-memo">
         {memo.title === '' ? '' : <div className="name">{memo.name}</div>}
         <div className="title">{memo.title}</div>
         <div className="content">{memo.content}</div>
@@ -45,4 +47,4 @@ const ViewPage = ({
   );
 };
 
-export default ViewPage;
+export default ViewMemo;

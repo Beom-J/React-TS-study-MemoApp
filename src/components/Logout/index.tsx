@@ -1,4 +1,4 @@
-import { User } from '../../types/Types';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   userId: string;
@@ -6,15 +6,18 @@ type Props = {
 };
 
 const LoginUserInfo = ({ userId, onClickLogOutButton }: Props) => {
+  const { t, i18n } = useTranslation();
   return (
     <div>
-      <span> 안녕하세요, {userId}님! </span>
+      <span>
+        {t('message.welcomeToLogIn')}, {userId}
+      </span>
       <button
         className="log-in-btn"
         type="button"
         onClick={onClickLogOutButton}
       >
-        Log-out
+        {t('button.logOut')}
       </button>
     </div>
   );

@@ -18,82 +18,8 @@
   margin-left: 10px;
 }
 
-.memo-warrap {
-  display: flex;
-  height: 92vh;
-}
-
-.memo-list {
-  display: flex;
-  flex-direction: column;
-  background-color: #dcd2cc;
-  width: 50vw;
-  padding: 5px;
-}
-
 ul {
   list-style: none;
   margin: 0;
   padding: 0;
-}
-
-.add-btn {
-  background-color: #ccafa5;
-  height: 5%;
-}
-
-.memo {
-  height: 50px;
-  margin: 5px;
-  padding: 10px;
-  display: flex;
-  background-color: #eeede7;
-  cursor: pointer;
-}
-
-.memo .title {
-  font-size: 20px;
-  font-weight: bold;
-  width: 70%;
-}
-
-.memo .info {
-  width: 40%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  font-size: 15px;
-}
-
-.info .id {
-  height: 60%;
-}
-
-.info .date {
-  height: 40%;
-}
-
-.memo-view {
-  background-color: #ede7dc;
-  width: 75vw;
-  padding: 20px;
-}
-
-.memo-view .buttons {
-  text-align: end;
-}
-
-.memo-view .top {
-  padding: 0;
-}
-
-.memo-view .title {
-  font-size: 50px;
-  font-weight: bold;
-}
-
-.memo-view .id,
-.memo-view .date {
-  font-size: 20px;
-  text-align: right;
 }
