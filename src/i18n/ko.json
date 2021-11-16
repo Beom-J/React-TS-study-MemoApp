@@ -26,6 +26,7 @@
     "save": "저장",
     "modify": "수정",
     "delete": "삭제",
-    "writeMemo": "메모 추가"
+    "writeMemo": "메모 추가",
+    "dayjs": "day.js 연습"
   }
 }
