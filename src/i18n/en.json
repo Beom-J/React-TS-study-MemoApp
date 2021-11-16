@@ -26,6 +26,7 @@
     "save": "save",
     "modify": "modify",
     "delete": "delete",
-    "writeMemo": "write memo"
+    "writeMemo": "write memo",
+    "dayjs": "practice day.js"
   }
 }

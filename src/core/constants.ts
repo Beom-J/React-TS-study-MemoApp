@@ -5,3 +5,8 @@ export const LocalStorageKey = {
   users: 'USERS',
   memos: 'MEMOS'
 };
+
+export const LanguageKey = {
+  KO: 'ko',
+  EN: 'en'
+};
