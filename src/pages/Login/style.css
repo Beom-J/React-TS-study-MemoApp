@@ -1,13 +1,27 @@
 .login-body {
+  background-color: #ede7dc;
+  height: 93vh;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 50vh;
+  justify-content: center;
+  flex-direction: column;
+  font-weight: bold;
 }
 
-.form-field {
-  display: flex;
-  padding: 20px 0;
+.login-body input {
+  width: 200px;
+  height: 40px;
+}
+
+.login-body span {
+  font-weight: bold;
+}
+
+.login-body button {
+  width: 100px;
+  height: 30px;
+  font-weight: bold;
+  color: black;
+  background-color: #ccafa5;
+  margin-left: 10px;
 }

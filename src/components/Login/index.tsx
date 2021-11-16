@@ -1,5 +1,3 @@
-import { User } from '../../types/Types';
-
 type Props = {
   userId: string;
   onClickLogOutButton: () => void;

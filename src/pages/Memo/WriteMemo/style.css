@@ -1,22 +1,19 @@
-.write-page {
+.write-memo {
   display: flex;
   flex-direction: column;
 }
 
-.write-page .name {
-}
-
-.write-page .title {
+.write-memo .title {
   font-size: 20px;
   font-weight: normal;
   height: 5vh;
 }
 
-.write-page .content {
+.write-memo .content {
   height: 70vh;
 }
 
-.write-page button {
+.write-memo button {
   background-color: #ccafa5;
   height: 5%;
 }
